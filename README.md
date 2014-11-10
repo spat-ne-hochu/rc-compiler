@@ -11,32 +11,59 @@ usage:
 template.html:
 > ```html
 <h3 rc-out="title"></h3>
-<ul>
-	<li rc-repeat="users[user]">{{user.name}} ({{user.age}})</li>
-</ul>
+<div rc-if="showUsers">
+	<ul>
+		<li rc-repeat="users[user]">
+			<span rc-repeat-obj="user{prop}">
+				<b>{{$key}}:</b>
+				{{prop}}
+			</span>
+		</li>
+	</ul>
+</div>
 ```
 
 js:
 > ```javascript
-// template is a fast js function;
-var template = require('rc-compiler').compile(fs.readFileSync('template.html'));
+// compile template
+var fs = require('fs');
+var template = require('../rc-compiler').compile(fs.readFileSync('./templates/simple.html'));
 // render template
 var html = template({
-	title: 'Page title',
-	users: [
-    		{name: 'Maria', age: 27},
-    		{name: 'Mike', age: 32}
-  	]
+    title: 'Page title',
+    users: [
+        {name: 'Maria', age: 27},
+        {name: 'Mike', age: 32}
+    ],
+    showUsers: true
 });
+console.log(html);
 ```
 
 result:
 > ```html
 <h3>Page title</h3>
-<ul>
-	<li>Maria (27)</li>
-	<li>Mike (32)</li>
-</ul>
+<div>
+	<ul>
+		<li>
+			<span>
+				<b>name:</b>
+				Maria
+			</span><span>
+				<b>age:</b>
+				27
+			</span>
+		</li><li>
+			<span>
+				<b>name:</b>
+				Mike
+			</span><span>
+				<b>age:</b>
+				32
+			</span>
+		</li>
+	</ul>
+</div>
 ```
 
 bechmark:
@@ -83,3 +110,38 @@ result:
 ```
 
 ---
+
+### rc-repeat-obj
+> desc: repeat node by data object fields<br/><br/>
+example:
+```html
+<li rc-repeat="users[user]">
+	<span rc-repeat-obj="user{prop}">
+		<b>{{$key}}:</b>
+		{{prop}}
+	</span>
+</li>
+```
+result: 
+```html
+<li>
+	<span>
+		<b>name:</b>
+		Maria
+	</span>
+	<span>
+		<b>age:</b>
+		27
+	</span>
+</li>
+<li>
+	<span>
+		<b>name:</b>
+		Mike
+	</span>
+	<span>
+		<b>age:</b>
+		32
+	</span>
+</li>
+```
