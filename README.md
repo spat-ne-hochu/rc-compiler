@@ -47,8 +47,7 @@ support directives:
 -------------------
 
 ### rc-out
-> desc: put variable in this tag.
-
+> desc: put variable in this tag.<br/><br/>
 example: 
 ```html
 <title rc-out="title"></title>
@@ -61,8 +60,8 @@ result:
 ---
 
 ### rc-if
-> desc: show/hide node and childs</br>
-</br>warn! now support **only simple expression** (no this: `a + d.x && b.prop || c.f()`)</br>
+> desc: show/hide node and childs<br/>
+</br>warn! now support **only simple expression** (no this: `a + d.x && b.prop || c.f()`)<br/><br/>
 example:
 ```html
 <div rc-if="isAccessible"> ... </div>
@@ -72,7 +71,7 @@ result: if variable isAccessible is true put this node
 ---
 
 ### rc-repeat
-> desc: repeat node by data array</br>
+> desc: repeat node by data array<br/><br/>
 example:
 ```html
 <li rc-repeat="users[user]">{{user.name}} ({{user.age}})</li>
