@@ -1,0 +1,26 @@
+{
+  "name": "rc-compiler",
+  "version": "0.1.2",
+  "description": "very fast js compiler angular-way style",
+  "main": "rc-compiler.js",
+  "scripts": {
+    "test": "compile('var fs = require('fs');var template = require('../rc-compiler').compile(fs.readFileSync('./templates/simple.html'));var html = template({title: 'Page title',users: [{name: 'Maria', age: 27},{name: 'Mike', age: 32}],showUsers: true});console.log(html);');"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spat-ne-hochu/rc-compiler.git"
+  },
+  "keywords": [
+    "templateEngine",
+    "angular",
+    "html",
+    "compiler",
+    "template"
+  ],
+  "author": "spat.ne.hochu <spat.ne.hochu@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/spat-ne-hochu/rc-compiler/issues"
+  },
+  "homepage": "https://github.com/spat-ne-hochu/rc-compiler"
+}
