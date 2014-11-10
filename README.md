@@ -68,7 +68,7 @@ result:
 
 bechmark:
 ---------
-this small example render **1 000 000** itterations by **~500ms**
+this small example render **1 000 000** itterations by **~800ms**
 
 support directives:
 -------------------
