@@ -20,7 +20,8 @@ for (i = 0; i < limit; ++i) {
         users: [
             {name: 'Maria', age: 27},
             {name: 'Mike', age: 32}
-        ]
+        ],
+        showUsers: true
     });
 }
 console.log('test render ' + limit + ' iterations: ' + (Date.now() - startTime) + 'ms');

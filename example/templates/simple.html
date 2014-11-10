@@ -1,6 +1,11 @@
 <h3 rc-out="title"></h3>
-<ul>
-	<li rc-repeat="users[user]">
-		{{user.name}} ({{user.age}})
-	</li>
-</ul>
+<div rc-if="showUsers">
+	<ul>
+		<li rc-repeat="users[user]">
+			<span rc-repeat-obj="user{prop}">
+				<b>{{$key}}:</b>
+				{{prop}}
+			</span>
+		</li>
+	</ul>
+</div>

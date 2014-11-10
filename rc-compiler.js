@@ -80,6 +80,26 @@ function rcRepeat(node, value, shared) {
     return code;
 }
 
+function rcRepeatObj(node, value, shared) {
+    "use strict";
+    ++shared.repeatStack;
+    var code = '';
+    var repeatValue = value;
+    var repeatRegexp = /^(.*)\{(.*)}$/;
+    var match = repeatValue.match(repeatRegexp);
+    var items = match[1];
+    var item = match[2];
+    var iterator = '$itr_' + shared.repeatStack;
+    code += "var " + iterator + ";" + "\r\n";
+    code += "for (" + iterator + " in view." + items + ") {" + "\r\n";
+    code += "view.$key = " + iterator + ";" + "\r\n";
+    code += "view." + item +" = view." + items + "[" + iterator + "];" + "\r\n";
+    code += compileNode(node, shared);
+    code += "}" + "\r\n";
+    --shared.repeatStack;
+    return code;
+}
+
 function simple(node, shared) {
     "use strict";
     var code = '';
@@ -108,6 +128,12 @@ function compileNode(htmlNode, shared) {
             code += rcRepeat(htmlNode, val, shared);
             return code;
         }
+        if (htmlNode.attrs['rc-repeat-obj']) {
+            val = htmlNode.attrs['rc-repeat-obj'];
+            delete htmlNode.attrs['rc-repeat-obj'];
+            code += rcRepeatObj(htmlNode, val, shared);
+            return code;
+        }
         if (htmlNode.attrs['rc-if']) {
             val = htmlNode.attrs['rc-if'];
             delete htmlNode.attrs['rc-if'];
@@ -134,7 +160,7 @@ function compileNode(htmlNode, shared) {
 
 function compile(html) {
     "use strict";
-    var parser = require('./htmlSimpleParser/htmlSimpleParser');
+    var parser = require('./rc-parser/rc-parser');
     var htmlRoot = parser.parse(html);
     var shared = {
         repeatStack: 0

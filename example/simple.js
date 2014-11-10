@@ -8,7 +8,8 @@ var html = template({
     users: [
         {name: 'Maria', age: 27},
         {name: 'Mike', age: 32}
-    ]
+    ],
+    showUsers: true
 });
 
 console.log(html);
