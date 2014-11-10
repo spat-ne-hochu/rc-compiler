@@ -9,11 +9,11 @@ usage:
 ------
 
 template.html:
-> `html<h3 rc-out="title"></h3><br/>
-	<ul><br/>
-	<li rc-repeat="users[user]">{{user.name}} ({{user.age}})<br/>
-	</li><br/>
-</ul>`
+> `html<h3 rc-out="title"></h3>`<br/>
+`	<ul>`<br/>
+`	<li rc-repeat="users[user]">{{user.name}} ({{user.age}})`<br/>
+`	</li>`<br/>
+`</ul>`
 
 js:
 > `// template is a fast js function;
