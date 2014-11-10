@@ -1,18 +1,18 @@
 rc-compiler
 ===========
 
-**very fast** js compiler angular-way style
-version **0.1.1**
+**very fast** js compiler angular-way style<br/>
+version **0.1.1**<br/>
 **warning! must be bugs!**
 
 usage:
 ------
 
 template.html:
-> `html<h3 rc-out="title"></h3>
-	<ul>
-	<li rc-repeat="users[user]">{{user.name}} ({{user.age}})
-	</li>
+> `html<h3 rc-out="title"></h3><br/>
+	<ul><br/>
+	<li rc-repeat="users[user]">{{user.name}} ({{user.age}})<br/>
+	</li><br/>
 </ul>`
 
 js:
@@ -44,15 +44,15 @@ support directives:
 
 ### rc-out
 > desc: put variable in this tag.
-example: <title rc-out="title"></title>
-result: <title>Page title</title>
+example: `<title rc-out="title"></title>`
+result: `<title>Page title</title>`
 
 ### rc-if
 > desc: show/hide tag (& childs)
-example: <div rc-if="isAccessible"> ... </div>
+example: `<div rc-if="isAccessible"> ... </div>`
 result: if variable isAccessible==true put this node
 
 ### rc-repeat
 > desc: repeat tag for date
-example: <li rc-repeat="users[user]">{{user.name}} ({{user.age}})</li>
-result: <pre><li>Maria (27)</li><li>Mike (32)</li>...</pre>
+example: `<li rc-repeat="users[user]">{{user.name}} ({{user.age}})</li>`
+result: `<li>Maria (27)</li><li>Mike (32)</li>`
