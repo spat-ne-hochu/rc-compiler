@@ -47,7 +47,8 @@ support directives:
 -------------------
 
 ### rc-out
-> desc: put variable in this tag.</br>
+> desc: put variable in this tag.
+
 example: 
 ```html
 <title rc-out="title"></title>
