@@ -9,12 +9,12 @@ usage:
 ======
 
 template.html:
-<h3 rc-out="title"></h3>
+<pre><h3 rc-out="title"></h3>
 <ul>
 	<li rc-repeat="users[user]">
 		{{user.name}} ({{user.age}})
 	</li>
-</ul>
+</ul></pre>
 
 // template is a fast js function;
 var template = require('rc-compiler').compile(fs.readFileSync('template.html'));
@@ -29,11 +29,13 @@ var html = template({
 });
 
 result:
+<pre>
 <h3>Page title</h3>
 <ul>
 	<li>Maria (27)</li>
 	<li>Mike (32)</li>
 </ul>
+</pre>
 
 bechmark:
 =========
@@ -58,5 +60,5 @@ rc-repeat
 ======
 desc: repeat tag for date
 example: <li rc-repeat="users[user]">{{user.name}} ({{user.age}})</li>
-result: <li>Maria (27)</li><li>Mike (32)</li> ...
+result: <pre><li>Maria (27)</li><li>Mike (32)</li>...</pre>
 
