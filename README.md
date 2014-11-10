@@ -2,7 +2,7 @@ rc-compiler
 ===========
 
 **very fast** js compiler angular-way style<br/>
-version **0.1.1**<br/>
+version **0.1.2**<br/>
 **warning! must be bugs!**
 
 usage:
