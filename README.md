@@ -41,31 +41,38 @@ result:
 
 bechmark:
 ---------
-this small example render **1 000 000** itteration by **~500ms**
+this small example render **1 000 000** itterations by **~500ms**
 
 support directives:
 -------------------
 
 ### rc-out
 > desc: put variable in this tag.
-example: ```html
+example: 
+```html
 <title rc-out="title"></title>
 ```
-result: ```html
+result: 
+```html
 <title>Page title</title>
 ```
 
 ### rc-if
-> desc: show/hide tag (& childs)
-example: ```html
+> desc: show/hide tag (& childs), warn: this time support **only simple expression**
+example:
+```html
 <div rc-if="isAccessible"> ... </div>
 ```
-result: if variable isAccessible==true put this node
+result: if variable isAccessible is true put this node
 
 ### rc-repeat
 > desc: repeat tag for date
-example: `<li rc-repeat="users[user]">{{user.name}} ({{user.age}})</li>`
-result: ```html
+example: 
+```html
+<li rc-repeat="users[user]">{{user.name}} ({{user.age}})</li>
+```
+result: 
+```html
 <li>Maria (27)</li>
 <li>Mike (32)</li>
 ```
