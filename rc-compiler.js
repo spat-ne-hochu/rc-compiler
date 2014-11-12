@@ -60,6 +60,29 @@ function rcIf(node, value, shared) {
     return code;
 }
 
+function rcDiv(node, value, shared) {
+    "use strict";
+    ++shared.repeatStack;
+    var code = '';
+    var repeatValue = value;
+    var repeatRegexp = /^(.*)\/([^\s]+)\sas\s(.*)$/;
+    var match = repeatValue.match(repeatRegexp);
+    var items = match[1];
+    var count = match[2];
+    var partName = match[3];
+    var iterator = '$itr_' + shared.repeatStack;
+    var length = '$len_' + shared.repeatStack;
+    code += "view." + items + " = (view." + items + " instanceof Array) ? view." + items + " : [];" + "\r\n";
+    code += "var " + length + " = view." + items + ".length;" + "\r\n";
+    code += "var limit = Math.ceil(" + length + "/" + count + "), " + iterator + ";" + "\r\n";
+    code += "for (" + iterator + "=0;" + iterator + " < " + length + "; " + iterator + "+=limit) {" + "\r\n";
+    code += "view." + partName + " = view." + items + ".slice(" + iterator + ", " + iterator + " + limit);" + "\r\n";
+    code += compileNode(node, shared);
+    code += "}" + "\r\n";
+    --shared.repeatStack;
+    return code;
+}
+
 function rcRepeat(node, value, shared) {
     "use strict";
     ++shared.repeatStack;
@@ -70,8 +93,10 @@ function rcRepeat(node, value, shared) {
     var items = match[1];
     var item = match[2];
     var iterator = '$itr_' + shared.repeatStack;
-    code += "var " + iterator + ", length = view." + items + ".length;" + "\r\n";
-    code += "for (" + iterator + "=0; " + iterator + "<length; ++" + iterator + ") {" + "\r\n";
+    var length = '$len_' + shared.repeatStack;
+    code += "view." + items + " = (view." + items + " instanceof Array) ? view." + items + " : [];" + "\r\n";
+    code += "var " + iterator + ", " + length + " = view." + items + ".length;" + "\r\n";
+    code += "for (" + iterator + "=0; " + iterator + "<" + length + "; ++" + iterator + ") {" + "\r\n";
     code += "view.$index = " + iterator + ";" + "\r\n";
     code += "view." + item +" = view." + items + "[" + iterator + "];" + "\r\n";
     code += compileNode(node, shared);
@@ -122,6 +147,12 @@ function compileNode(htmlNode, shared) {
     "use strict";
     var code = '', val;
     if (htmlNode.type === 'html') {
+        if (htmlNode.attrs['rc-div']) {
+            val = htmlNode.attrs['rc-div'];
+            delete htmlNode.attrs['rc-div'];
+            code += rcDiv(htmlNode, val, shared);
+            return code;
+        }
         if (htmlNode.attrs['rc-repeat']) {
             val = htmlNode.attrs['rc-repeat'];
             delete htmlNode.attrs['rc-repeat'];

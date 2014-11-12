@@ -2,8 +2,8 @@ rc-compiler
 ===========
 
 **very fast** js compiler angular-way style<br/>
-version **0.1.1**<br/>
-**warning! must be bugs!**
+version **0.1.3**<br/>
+**must be bugs**
 
 usage:
 ------
@@ -68,7 +68,7 @@ result:
 
 bechmark:
 ---------
-this small example render **1 000 000** itterations by **~800ms**
+this small example render **100 000** itterations by **~200ms**
 
 support directives:
 -------------------
