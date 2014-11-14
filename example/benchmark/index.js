@@ -50,7 +50,7 @@ var data = {
 };
 
 // Render test
-limit = 1E5;
+limit = 1E6;
 startTime = Date.now();
 for (i = 0; i < limit; ++i) {
     outHtml = template(data);

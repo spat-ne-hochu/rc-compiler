@@ -13,7 +13,8 @@ change logs
 
 bench
 -----
-ect example render **1 000 000** iterations by **~450ms**<br/>
+ect example template render **1 000 000** iterations by **~450ms**<br/>
+(100 000 iterations by 45ms)<br/>
 [Ect test](http://ectjs.com/#benchmark)
 
 usage
