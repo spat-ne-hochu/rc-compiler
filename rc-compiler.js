@@ -18,9 +18,9 @@ function interpolate(text) {
     code = code
         .replace(/\{\{/g, "' + view.")
         .replace(/}}/g, " + '")
-        .replace(/\r/g, '\\r')
-        .replace(/\n/g, '\\n')
-        .replace(/\t/g, '\\t');
+        .replace(/\r/g, '')
+        .replace(/\n/g, '')
+        .replace(/\t/g, '');
     return "html += " + code + ";" + "\r\n";
 }
 
@@ -30,7 +30,7 @@ function _printNodeStart(node, shared) {
     for (i in node.attrs) if (node.attrs.hasOwnProperty(i)) {
         code += "html += ' " + i + "=\"';" + "\r\n";
         code += interpolate(node.attrs[i], shared);
-        code += "html += '\"'" + "\r\n";
+        code += "html += '\"';" + "\r\n";
     }
     code += "html += '>';" + "\r\n";
     return code;
@@ -147,6 +147,12 @@ function compileNode(htmlNode, shared) {
     "use strict";
     var code = '', val;
     if (htmlNode.type === 'html') {
+        if (htmlNode.attrs['rc-if']) {
+            val = htmlNode.attrs['rc-if'];
+            delete htmlNode.attrs['rc-if'];
+            code += rcIf(htmlNode, val, shared);
+            return code;
+        }
         if (htmlNode.attrs['rc-div']) {
             val = htmlNode.attrs['rc-div'];
             delete htmlNode.attrs['rc-div'];
@@ -163,12 +169,6 @@ function compileNode(htmlNode, shared) {
             val = htmlNode.attrs['rc-repeat-obj'];
             delete htmlNode.attrs['rc-repeat-obj'];
             code += rcRepeatObj(htmlNode, val, shared);
-            return code;
-        }
-        if (htmlNode.attrs['rc-if']) {
-            val = htmlNode.attrs['rc-if'];
-            delete htmlNode.attrs['rc-if'];
-            code += rcIf(htmlNode, val, shared);
             return code;
         }
         if (htmlNode.attrs['rc-out']) {
@@ -200,7 +200,40 @@ function compile(html) {
     code += compileNode(htmlRoot, shared);
     code += "return html;";
     //console.log(code);
+    code = optimizeCode(code);
+    //console.log(code);
     return new Function('view', code);
+}
+
+function optimizeCode(code) {
+
+    function isText (line) {
+        return line.indexOf('html +=') === 0;
+    }
+
+    var arr = code.split(/\r\n/g), i, k=-1;
+    var result = [], length = arr.length;
+    for (i=0;i<length;++i) {
+        if (isText(arr[i])) {
+            if (i>0 && isText(arr[i-1])) {
+                result[k] += ' + ' + arr[i].substring(8, arr[i].length-1);
+            } else {
+                ++k;
+                result[k] = arr[i].substr(0, arr[i].length-1);
+            }
+        } else {
+            if (i>0 && isText(arr[i-1])) {
+                result[k] += ';';
+            }
+            ++k;
+            result[k] = arr[i];
+        }
+    }
+    length = result.length;
+    for (i=0;i<length;++i) {
+        result[i] = result[i].replace(/'\s\+\s'/g, '');
+    }
+    return result.join("\r\n");
 }
 
 exports.compile = compile;

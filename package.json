@@ -1,6 +1,6 @@
 {
   "name": "rc-compiler",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "very fast js compiler angular-way style",
   "main": "rc-compiler.js",
   "scripts": {

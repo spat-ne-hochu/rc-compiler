@@ -1,0 +1,32 @@
+<style>
+	.col {
+		width: 200px;
+		display: inline-block;
+		padding: 8px;
+		margin: 8px;
+		background: #eee;
+		vertical-align: top;
+	}
+	.col > div {
+		padding: 4px;
+		margin: 4px;
+		background: #ddd;
+	}
+</style>
+<h3 rc-out="title"></h3>
+<div rc-if="showUsers">
+	<ul>
+		<li rc-repeat="users[user]">
+			<span rc-repeat-obj="user{prop}">
+				<b>{{$key}}:</b>
+				{{prop}}
+			</span>
+		</li>
+	</ul>
+</div>
+
+<h3>DIVIDE DIRECTIVE:</h3>
+<div class="col" rc-div="numbers/5 as part">
+	<div rc-repeat="part[number]">{{number}}</div>
+</div>
+

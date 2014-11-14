@@ -2,10 +2,21 @@ rc-compiler
 ===========
 
 **very fast** js compiler angular-way style<br/>
-version **0.1.3**<br/>
-**must be bugs**
+version **0.1.4**<br/>
 
-usage:
+change logs
+------------
+0.1.1 initial functional<br/>
+0.1.2 add rc-repeat-obj directive<br/>
+0.1.3 add rc-div directive<br/>
+0.1.4 first optimize compiled code, set [Ect test](http://ectjs.com/#benchmark)<br/>
+
+bench
+-----
+ect example render **1 000 000** iterations by **~450ms**<br/>
+[Ect test](http://ectjs.com/#benchmark)
+
+usage
 ------
 
 template.html:
@@ -66,12 +77,13 @@ result:
 </div>
 ```
 
-bechmark:
----------
-this small example render **100 000** itterations by **~200ms**
-
 support directives:
 -------------------
+[rc-out](#rc-out), 
+[rc-if](#rc-if), 
+[rc-repeat](#rc-repeat), 
+[rc-repeat-obj](#rc-repeat-obj), 
+[rc-div](#rc-div)
 
 ### rc-out
 > desc: put variable in this tag.<br/><br/>
